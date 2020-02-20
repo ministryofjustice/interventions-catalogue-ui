@@ -1,0 +1,71 @@
+version: '3.1'
+services:
+
+  oauth-server:
+    image: mojdigitalstudio/nomis-oauth2-server:latest
+    networks:
+      - hmpps
+    container_name: oauth-server
+    ports:
+      - "9090:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/auth/health"]
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  elite2-api:
+    image: mojdigitalstudio/elite2-api:latest
+    networks:
+      - hmpps
+    container_name: elite2-api
+    depends_on:
+      - oauth-server
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+    environment:
+      - SPRING_PROFILES_ACTIVE=nomis-hsqldb
+
+  # use-of-force-db:
+  #   image: postgres:10.6
+  #   networks:
+  #     - hmpps
+  #   container_name: use-of-force-db
+  #   restart: always
+  #   ports:
+  #     - "5433:5432"
+  #   environment:
+  #     - POSTGRES_PASSWORD=use-of-force
+  #     - POSTGRES_USER=use-of-force
+  #     - POSTGRES_DB=use-of-force
+
+  # use-of-force-redis:
+  #   image: 'bitnami/redis:5.0'
+  #   networks:
+  #     - hmpps
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #   ports:
+  #     - '6379:6379'
+
+  interventions-catalogue-ui:
+    build: .
+    networks:
+      - hmpps
+    depends_on:
+      - oauth-server
+      - elite2-api
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+    environment:
+      - PORT=3000
+      - NOMIS_AUTH_URL=http://oauth-server:8080/auth
+      - NOMIS_AUTH_EXTERNAL_URL=http://localhost:9090/auth
+      - ELITE2API_ENDPOINT_URL=http://elite2-api:8080
+      - NODE_ENV=development
+
+networks:
+  hmpps:
