@@ -85,8 +85,7 @@
     },
     "ignore": [
       "package.json",
-      "package-lock.json",
-      "./assets/**"
+      "package-lock.json"
     ]
   },
   "dependencies": {
