@@ -79,7 +79,7 @@
         "git add"
       ],
       "*.js": [
-        "eslint --fix",
+        "eslint --fix --max-warnings=0",
         "git add"
       ]
     },
