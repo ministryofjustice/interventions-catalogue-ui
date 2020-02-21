@@ -17,7 +17,9 @@ module.exports = function Index({ authenticationMiddleware }) {
     next()
   })
 
+  // eslint-disable-next-line no-unused-vars
   const get = (path, handler) => router.get(path, asyncMiddleware(handler))
+  // eslint-disable-next-line no-unused-vars
   const post = (path, handler) => router.post(path, asyncMiddleware(handler))
 
   // get('/:reportId/report-sent', incidents.viewReportSent)
