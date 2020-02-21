@@ -22,6 +22,7 @@ const logger = require('../log.js')
 const nunjucksSetup = require('./utils/nunjucksSetup')
 const auth = require('./authentication/auth')
 const populateCurrentUser = require('./middleware/populateCurrentUser')
+// eslint-disable-next-line no-unused-vars
 const authorisationMiddleware = require('./middleware/authorisationMiddleware')
 const errorHandler = require('./errorHandler')
 
@@ -221,7 +222,7 @@ module.exports = function createApp({ signInService, userService }) {
   const currentUserInContext = populateCurrentUser(userService)
   app.use(currentUserInContext)
 
-  app.use(authorisationMiddleware)
+  // app.use(authorisationMiddleware)
 
   app.use(
     '/',
