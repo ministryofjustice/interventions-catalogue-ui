@@ -162,7 +162,7 @@ jobs:
       - run:
           name: Build container and publish to quay.io
           command: |
-            APP_VERSION=$(cat ./app_version.txt)
+            APP_VERSION=$(egrep buildNumber build-info.json  | awk -F"\"" '{print $4}')
             IMAGE_NAME="quay.io/hmpps/interventions-catalogue-ui"
             docker build --rm=false . \
                 --tag "$IMAGE_NAME:$APP_VERSION" \
