@@ -28,12 +28,6 @@ env:
         name: {{ template "app.name" . }}
         key: SYSTEM_CLIENT_SECRET
 
-  - name: APPINSIGHTS_INSTRUMENTATIONKEY
-    valueFrom:
-      secretKeyRef:
-        name: {{ template "app.name" . }}
-        key: APPINSIGHTS_INSTRUMENTATIONKEY
-
   - name: SESSION_SECRET
     valueFrom:
       secretKeyRef:
