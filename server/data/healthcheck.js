@@ -8,9 +8,9 @@ const logger = require('../../log.js')
 const config = require('../config')
 
 const agentOptions = {
-  maxSockets: config.apis.elite2.agent.maxSockets,
-  maxFreeSockets: config.apis.elite2.agent.maxFreeSockets,
-  freeSocketTimeout: config.apis.elite2.agent.freeSocketTimeout,
+  maxSockets: config.apis.service.agent.maxSockets,
+  maxFreeSockets: config.apis.service.agent.maxFreeSockets,
+  freeSocketTimeout: config.apis.service.agent.freeSocketTimeout,
 }
 
 function serviceCheckFactory(name, url) {
