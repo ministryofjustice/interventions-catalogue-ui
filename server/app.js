@@ -127,7 +127,7 @@ module.exports = function createApp({ signInService, userService }) {
     app.use('/assets/images/icons', express.static(path.join(__dirname, dir), cacheControl))
   })
 
-  const healthcheck = healthcheckFactory(config.apis.oauth2.url, config.apis.elite2.url)
+  const healthcheck = healthcheckFactory(config.apis.oauth2.url, config.apis.service.url)
 
   // Express Routing Configuration
   app.get('/health', (req, res, next) => {
