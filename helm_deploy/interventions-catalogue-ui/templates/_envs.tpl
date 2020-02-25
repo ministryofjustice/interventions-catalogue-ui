@@ -4,6 +4,18 @@ Environment variables for web and worker containers
 */}}
 {{- define "deployment.envs" }}
 env:
+  - name: API_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.name" . }}
+        key: API_CLIENT_ID
+
+  - name: API_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "app.name" . }}
+        key: API_CLIENT_SECRET
+
   - name: SESSION_SECRET	
     valueFrom:	
       secretKeyRef:	
@@ -21,4 +33,7 @@ env:
   
   - name: EXIT_LOCATION_URL
     value: {{ .Values.env.EXIT_LOCATION_URL | quote }}
+
+  - name: SERVICE_ENDPOINT_URL
+    value: {{ .Values.env.SERVICE_ENDPOINT_URL | quote }}
 {{- end -}}
