@@ -7,6 +7,7 @@ metadata:
     chart: {{ template "app.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+    appVersion: {{ .Chart.AppVersion }}
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 2
@@ -20,11 +21,13 @@ spec:
     matchLabels:
       app: {{ template "app.name" . }}
       release: {{ .Release.Name }}
+      appVersion: {{ .Chart.AppVersion }}
   template:
     metadata:
       labels:
         app: {{ template "app.name" . }}
         release: {{ .Release.Name }}
+        appVersion: {{ .Chart.AppVersion }}
     spec:
       affinity:
         podAntiAffinity:
@@ -45,36 +48,4 @@ spec:
           ports:
             - containerPort: {{ .Values.image.port }}
               protocol: TCP
-          livenessProbe:
-            exec:
-              command:
-              - ls
-            periodSeconds: 30
-            initialDelaySeconds: 90
-            timeoutSeconds: 20
-            failureThreshold: 10
-          readinessProbe:
-            exec:
-              command:
-              - ls
-            periodSeconds: 20
-            initialDelaySeconds: 60
-            timeoutSeconds: 30
-            failureThreshold: 15
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: {{ .Values.image.port }}
-          #   periodSeconds: 30
-          #   initialDelaySeconds: 90
-          #   timeoutSeconds: 20
-          #   failureThreshold: 10
-          # readinessProbe:
-          #   httpGet:
-          #     path: /health
-          #     port: {{ .Values.image.port }}
-          #   periodSeconds: 20
-          #   initialDelaySeconds: 60
-          #   timeoutSeconds: 30
-          #   failureThreshold: 15
 {{ include "deployment.envs" . | nindent 10 }}
