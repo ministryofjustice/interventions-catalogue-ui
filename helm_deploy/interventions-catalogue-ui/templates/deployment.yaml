@@ -21,7 +21,6 @@ spec:
     matchLabels:
       app: {{ template "app.name" . }}
       release: {{ .Release.Name }}
-      appVersion: {{ .Chart.AppVersion }}
   template:
     metadata:
       labels:
