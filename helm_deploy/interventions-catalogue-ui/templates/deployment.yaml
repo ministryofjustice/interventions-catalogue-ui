@@ -7,7 +7,6 @@ metadata:
     chart: {{ template "app.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    appVersion: {{ .Chart.AppVersion }}
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 2
@@ -26,7 +25,6 @@ spec:
       labels:
         app: {{ template "app.name" . }}
         release: {{ .Release.Name }}
-        appVersion: {{ .Chart.AppVersion }}
     spec:
       affinity:
         podAntiAffinity:

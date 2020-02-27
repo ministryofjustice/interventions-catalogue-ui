@@ -7,7 +7,6 @@ metadata:
     chart: {{ template "app.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    appVersion: {{ .Chart.AppVersion }}
 spec:
   type: ClusterIP
   ports:
