@@ -8,8 +8,8 @@ const service = (name, url) => {
       .catch(err => ({ name, status: 'ERROR', message: err }))
 }
 
-module.exports = function healthcheckFactory(authUrl, elite2Url) {
-  const checks = [service('auth', `${authUrl}/ping`), service('elite2', `${elite2Url}/ping`)]
+module.exports = function healthcheckFactory(authUrl, serviceUrl) {
+  const checks = [service('auth', `${authUrl}/ping`), service('ic-service', `${serviceUrl}/ping`)]
 
   return callback =>
     Promise.all(checks.map(fn => fn())).then(checkResults => {
