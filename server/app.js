@@ -203,8 +203,6 @@ module.exports = function createApp({ signInService, userService }) {
   // Only changes every minute so that it's not sent with every request.
   app.use((req, res, next) => {
     req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
-
-    // console.log(`session ${JSON.stringify(req.session)}`)
     next()
   })
 
@@ -219,12 +217,33 @@ module.exports = function createApp({ signInService, userService }) {
 
   app.get('/login', passport.authenticate('oauth2'))
 
-  app.get('/login/callback', (req, res, next) =>
-    passport.authenticate('oauth2', {
-      successReturnToOrRedirect: req.session.returnTo || '/',
-      failureRedirect: '/autherror',
+  // app.get('/login/callback', (req, res, next) =>
+  //   passport.authenticate('oauth2', {
+  //     successReturnToOrRedirect: req.session.returnTo || '/',
+  //     failureRedirect: '/autherror',
+  //   })(req, res, next)
+  // )
+
+  app.get('/login/callback', function(req, res, next) {
+    passport.authenticate('oauth2', function(err, user, info) {
+      console.log(err)
+      console.log(user)
+      console.log(info)
+
+      if (err) {
+        return next(err)
+      }
+      if (!user) {
+        return res.redirect('/login')
+      }
+      req.logIn(user, function(err) {
+        if (err) {
+          return next(err)
+        }
+        return res.redirect(req.session.returnTo || '/')
+      })
     })(req, res, next)
-  )
+  })
 
   app.use('/logout', (req, res) => {
     if (req.user) {
