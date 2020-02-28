@@ -14,7 +14,7 @@ The app requires:
 
 ### Runing the app for development**
 
-To start the main services excluding the use of force app: 
+To start the main services excluding the interventions catalogue ui app: 
 `docker-compose up --scale=interventions-catalogue-ui=0`
 
 Install dependencies using `npm install`, ensuring you are using >= `Node v10.15.3`

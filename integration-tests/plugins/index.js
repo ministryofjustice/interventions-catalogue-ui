@@ -1,3 +1,6 @@
+const auth = require('../mockApis/auth')
+const { resetStubs } = require('../mockApis/wiremock')
+
 // / <reference types="cypress" />
 // ***********************************************************
 // This example plugins/index.js can be used to load plugins
@@ -19,4 +22,13 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  on('task', {
+    reset: () => resetStubs(),
+
+    getLoginUrl: auth.getLoginUrl,
+
+    stubLogin: () => auth.stubLogin({ isReviewer: false }),
+
+    stubUserDetailsRetrieval: auth.stubUserDetailsRetrieval,
+  })
 }

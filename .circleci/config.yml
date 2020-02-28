@@ -206,12 +206,12 @@ workflows:
       - test:
           requires:
             - build
-      - integration_test:
-          requires:
-            - test
+      # - integration_test:
+      #     requires:
+      #       - test
       - build_docker:
-          requires:
-            - integration_test
+          # requires:
+          #   - integration_test
       #     filters:
       #       branches:
       #         only: master
