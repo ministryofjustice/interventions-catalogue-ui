@@ -222,7 +222,7 @@ module.exports = function createApp({ signInService, userService }) {
   const currentUserInContext = populateCurrentUser(userService)
   app.use(currentUserInContext)
 
-  // app.use(authorisationMiddleware)
+  app.use(authorisationMiddleware)
 
   app.use(
     '/',

@@ -9,7 +9,7 @@ const createToken = authorities => {
     auth_source: 'nomis',
     ...authorities,
     jti: '83b50a10-cca6-41db-985f-e87efb303ddb',
-    client_id: 'use-of-force-client',
+    client_id: 'interventions-catalogue-client',
   }
 
   const token = jwt.sign(payload, 'secret', { expiresIn: '1h' })

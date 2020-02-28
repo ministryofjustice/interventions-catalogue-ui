@@ -32,7 +32,7 @@ module.exports = {
         maxFreeSockets: 10,
         freeSocketTimeout: 30000,
       },
-      apiClientId: get('API_CLIENT_ID', 'use-of-force-client', requiredInProduction),
+      apiClientId: get('API_CLIENT_ID', 'interventions-catalogue-client', requiredInProduction),
       apiClientSecret: get('API_CLIENT_SECRET', 'clientsecret', requiredInProduction),
       // systemClientId: get('SYSTEM_CLIENT_ID', get('API_CLIENT_ID', 'use-of-force-system'), requiredInProduction),
       // systemClientSecret: get('SYSTEM_CLIENT_SECRET', get('API_CLIENT_SECRET', 'clientsecret'), requiredInProduction),

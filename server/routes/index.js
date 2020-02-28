@@ -9,7 +9,7 @@ const CreateHomeRoutes = require('./home')
 module.exports = function Index({ authenticationMiddleware }) {
   const router = express.Router()
 
-  // router.use(authenticationMiddleware())
+  router.use(authenticationMiddleware())
   router.use(bodyParser.urlencoded({ extended: false }))
   router.use(flash())
 
