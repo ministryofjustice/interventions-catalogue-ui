@@ -42,7 +42,6 @@ describe('Auth users - getUser()', () => {
       ...authUser,
       displayName: 'Sam Smith',
       roles: [{ roleCode: 'GLOBAL_SEARCH' }, { roleCode: 'PATHFINDER_OM' }],
-      globalSearchRequired: true,
     })
 
     expect(authClientBuilder).toBeCalledWith(context.token)

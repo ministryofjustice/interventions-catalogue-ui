@@ -224,11 +224,11 @@ module.exports = function createApp({ signInService, userService }) {
   //   })(req, res, next)
   // )
 
-  app.get('/login/callback', function(req, res, next) {
-    passport.authenticate('oauth2', function(err, user, info) {
-      console.log(err)
-      console.log(user)
-      console.log(info)
+  app.get('/login/callback', (req, res, next) => {
+    passport.authenticate('oauth2', (err, user, info) => {
+      logger.info(err)
+      logger.info(user)
+      logger.info(info)
 
       if (err) {
         return next(err)
@@ -236,9 +236,9 @@ module.exports = function createApp({ signInService, userService }) {
       if (!user) {
         return res.redirect('/login')
       }
-      req.logIn(user, function(err) {
-        if (err) {
-          return next(err)
+      return req.logIn(user, error => {
+        if (error) {
+          return next(error)
         }
         return res.redirect(req.session.returnTo || '/')
       })
