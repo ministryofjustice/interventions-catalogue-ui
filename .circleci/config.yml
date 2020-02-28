@@ -210,8 +210,8 @@ workflows:
       #     requires:
       #       - test
       - build_docker:
-          # requires:
-          #   - integration_test
+          requires:
+            - test
       #     filters:
       #       branches:
       #         only: master
