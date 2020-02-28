@@ -12,7 +12,10 @@ const moment = require('moment')
 const compression = require('compression')
 const passport = require('passport')
 const bodyParser = require('body-parser')
-const cookieSession = require('cookie-session')
+
+const session = require('express-session')
+// const cookieSession = require('cookie-session')
+
 const sassMiddleware = require('node-sass-middleware')
 
 const healthcheckFactory = require('./services/healthcheck')
@@ -59,16 +62,26 @@ module.exports = function createApp({ signInService, userService }) {
 
   app.use(addRequestId)
 
+  // app.use(
+  //   cookieSession({
+  //     name: 'session',
+  //     keys: [config.sessionSecret],
+  //     // maxAge: 60 * 60 * 1000,
+  //     // secure: config.https,
+  //     // httpOnly: true,
+  //     // signed: true,
+  //     // overwrite: true,
+  //     // sameSite: 'lax',
+  //   })
+  // )
+
   app.use(
-    cookieSession({
-      name: 'session',
-      keys: [config.sessionSecret],
-      maxAge: 60 * 60 * 1000,
-      secure: config.https,
-      httpOnly: true,
-      signed: true,
-      overwrite: true,
-      sameSite: 'lax',
+    session({
+      // store: new RedisStore({ client }),
+      cookie: { secure: config.https, sameSite: 'lax', maxAge: config.session.expiryMinutes * 60 * 1000 },
+      secret: config.session.secret,
+      resave: false, // redis implements touch so shouldn't need this
+      saveUninitialized: true,
     })
   )
 
@@ -190,6 +203,8 @@ module.exports = function createApp({ signInService, userService }) {
   // Only changes every minute so that it's not sent with every request.
   app.use((req, res, next) => {
     req.session.nowInMinutes = Math.floor(Date.now() / 60e3)
+
+    // console.log(`session ${JSON.stringify(req.session)}`)
     next()
   })
 
