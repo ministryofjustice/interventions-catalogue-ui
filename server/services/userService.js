@@ -14,9 +14,6 @@ module.exports = function createUserService(authClientBuilder) {
       nameForDisplay = user.name
       roles = await authClient.getUserRoles()
 
-      // Set common values based on roles
-      // const globalSearchRequired = roles.some(role => role.roleCode === 'GLOBAL_SEARCH')
-
       return {
         ...user,
         displayName: nameForDisplay,
