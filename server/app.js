@@ -62,19 +62,6 @@ module.exports = function createApp({ signInService, userService }) {
 
   app.use(addRequestId)
 
-  // app.use(
-  //   cookieSession({
-  //     name: 'session',
-  //     keys: [config.sessionSecret],
-  //     // maxAge: 60 * 60 * 1000,
-  //     // secure: config.https,
-  //     // httpOnly: true,
-  //     // signed: true,
-  //     // overwrite: true,
-  //     // sameSite: 'lax',
-  //   })
-  // )
-
   app.use(
     session({
       // store: new RedisStore({ client }),
