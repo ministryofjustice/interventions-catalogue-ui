@@ -16,7 +16,6 @@ module.exports = token => {
       const { status, body } = await userGet({
         path,
         raw: true,
-        // headers: { Accept: 'application/json', 'Content-Type': 'application/json', responseType: 'application/json' },
       })
       return { interventions: body, exists: status !== 404, verified: status === 200 }
     },

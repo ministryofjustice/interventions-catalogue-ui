@@ -19,4 +19,4 @@ ingress:
 env:
   NOMIS_AUTH_URL: https://gateway.t3.nomis-api.hmpps.dsd.io/auth
   EXIT_LOCATION_URL: https://digital-dev.prison.service.justice.gov.uk/
-  SERVICE_ENDPOINT_URL: https://interventions-catalogue-service-dev.apps.live-1.cloud-platform.service.justice.gov.uk/
+  SERVICE_ENDPOINT_URL: https://interventions-catalogue-service-dev.apps.live-1.cloud-platform.service.justice.gov.uk
