@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "npm run build && DEBUG=gov-starter-server* DB_PORT=5433 nodemon server.js | bunyan -o short",
-    "start-feature": "PORT=3007 NOMIS_AUTH_URL=http://localhost:9091/auth NODE_ENV=development node $NODE_DEBUG_OPTION server.js | bunyan -o short",
-    "start-feature:dev": "PORT=3007 NOMIS_AUTH_URL=http://localhost:9091/auth NODE_ENV=development nodemon $NODE_DEBUG_OPTION server.js | bunyan -o short",
+    "start-feature": "PORT=3007 NOMIS_AUTH_URL=http://localhost:9091/auth SERVICE_ENDPOINT_URL=http://localhost:9091/service NODE_ENV=development node $NODE_DEBUG_OPTION server.js | bunyan -o short",
+    "start-feature:dev": "PORT=3007 NOMIS_AUTH_URL=http://localhost:9091/auth SERVICE_ENDPOINT_URL=http://localhost:9091/service NODE_ENV=development nodemon $NODE_DEBUG_OPTION server.js | bunyan -o short",
     "build": "npm run css-build",
     "css-build": "./bin/build-css",
     "clean": "rm -rf assets/* .port.tmp *.log build/* uploads/* test-results.xml",

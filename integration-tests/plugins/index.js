@@ -1,4 +1,5 @@
 const auth = require('../mockApis/auth')
+const service = require('../mockApis/service')
 const { resetStubs } = require('../mockApis/wiremock')
 
 // / <reference types="cypress" />
@@ -28,6 +29,8 @@ module.exports = (on, config) => {
     getLoginUrl: auth.getLoginUrl,
 
     stubLogin: () => auth.stubLogin({ isReviewer: false }),
+
+    stubInterventions: () => service.stubInterventions(),
 
     stubUserDetailsRetrieval: auth.stubUserDetailsRetrieval,
   })

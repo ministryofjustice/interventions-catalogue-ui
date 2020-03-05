@@ -5,6 +5,7 @@ context('Actions', () => {
     cy.task('reset')
     cy.task('stubLogin')
     cy.task('stubUserDetailsRetrieval', 'TEST_USER')
+    cy.task('stubInterventions')
   })
 
   describe('Implicit Assertions', () => {
