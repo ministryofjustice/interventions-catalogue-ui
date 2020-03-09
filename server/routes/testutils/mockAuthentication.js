@@ -1,4 +1,4 @@
-const session = require('cookie-session')
+const session = require('express-session')
 const passport = require('passport')
 
 const auth = require('../../../server/authentication/auth')

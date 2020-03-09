@@ -14,7 +14,6 @@ const passport = require('passport')
 const bodyParser = require('body-parser')
 
 const session = require('express-session')
-// const cookieSession = require('cookie-session')
 
 const sassMiddleware = require('node-sass-middleware')
 

@@ -2,7 +2,7 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const cookieSession = require('cookie-session')
+const session = require('express-session')
 const path = require('path')
 const nunjucksSetup = require('../../utils/nunjucksSetup')
 const errorHandler = require('../../errorHandler')
@@ -31,7 +31,7 @@ const appSetup = (route, userSupplier = () => user) => {
     res.locals.user = req.user
     next()
   })
-  app.use(cookieSession({ keys: [''] }))
+  app.use(session({ keys: [''] }))
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use('/', route)
