@@ -1,0 +1,45 @@
+version: '3.1'
+services:
+
+  oauth-server:
+    image: mojdigitalstudio/nomis-oauth2-server:latest
+    networks:
+      - hmpps
+    ports:
+      - "9090:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/auth/health"]
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  interventions-catalogue-db:
+    image: postgres:11.6
+    networks:
+      - hmpps
+    container_name: interventions-catalogue-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=interventions-catalogue-service
+      - POSTGRES_DB=interventions-catalogue
+
+  interventions-catalogue-ui:
+    build: .
+    networks:
+      - hmpps
+    depends_on:
+      - oauth-server
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+    environment:
+      - PORT=3000
+      - NOMIS_AUTH_URL=http://oauth-server:8080/auth
+      - NOMIS_AUTH_EXTERNAL_URL=http://localhost:9090/auth
+      - NODE_ENV=development
+
+networks:
+  hmpps:

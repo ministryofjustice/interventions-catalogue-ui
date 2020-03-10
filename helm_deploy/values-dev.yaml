@@ -1,0 +1,22 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/hmpps/interventions-catalogue-ui
+  tag: latest
+  pullPolicy: Always
+  port: 3000
+
+ingress:
+  enabled: true
+  enable_whitelist: false
+  host: interventions-catalogue-dev.apps.live-1.cloud-platform.service.justice.gov.uk
+  cert_secret: interventions-catalogue-ui-cert
+  path: /
+
+env:
+  NOMIS_AUTH_URL: https://gateway.t3.nomis-api.hmpps.dsd.io/auth
+  EXIT_LOCATION_URL: https://digital-dev.prison.service.justice.gov.uk/
+  SERVICE_ENDPOINT_URL: https://interventions-catalogue-service-dev.apps.live-1.cloud-platform.service.justice.gov.uk
