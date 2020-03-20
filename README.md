@@ -1,5 +1,8 @@
 # Interventions Catalogue UI
 
+[![CircleCI](https://circleci.com/gh/ministryofjustice/interventions-catalogue-ui/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/interventions-catalogue-ui)
+[![Known Vulnerabilities](https://snyk.io/test/github/ministryofjustice/interventions-catalogue-ui/badge.svg)](https://snyk.io/test/github/ministryofjustice/interventions-catalogue-ui)
+
 ## Getting started
 The easiest way to run the app is to use docker compose to build the local app as a docker image and download and run the three required containers.
 
