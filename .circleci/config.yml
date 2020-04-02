@@ -71,7 +71,7 @@ orbs:
   aws-cli: circleci/aws-cli@0.1.18
   kubernetes: circleci/kubernetes@0.10.1
   helm: circleci/helm@0.2.3
-  snyk: snyk/snyk@0.0.9
+  snyk: snyk/snyk@0.0.10
 
 jobs:
   build:
@@ -91,11 +91,6 @@ jobs:
           paths:
             - node_modules
             - ~/.cache
-      - snyk/scan:
-          fail-on-issues: false
-          monitor-on-build: true
-          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
-          organization: 'digital-probation-services'
       - run:
           name: Linter check
           command: npm run lint
@@ -185,13 +180,6 @@ jobs:
               docker push $IMAGE_NAME:$APP_VERSION
               docker push $IMAGE_NAME:latest
             #fi
-      - snyk/scan:
-          docker-image-name: 'quay.io/hmpps/interventions-catalogue-ui:latest'
-          target-file: 'Dockerfile'
-          fail-on-issues: false
-          monitor-on-build: true
-          project: '${CIRCLE_PROJECT_REPONAME}/latest'
-          organization: 'digital-probation-services'
   deploy_dev:
     executor: deployer
     steps:
@@ -208,8 +196,43 @@ jobs:
       - deploy_to_env:
           env: 'prod'
 
+  app-scan:
+    executor: builder
+    steps:
+      - checkout
+      - snyk/scan:
+          fail-on-issues: false
+          monitor-on-build: true
+          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
+          organization: 'digital-probation-services'
+
+  image-scan:
+    executor: deployer
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - snyk/scan:
+          docker-image-name: 'quay.io/hmpps/interventions-catalogue-ui:latest'
+          target-file: 'Dockerfile'
+          fail-on-issues: false
+          monitor-on-build: true
+          project: '${CIRCLE_PROJECT_REPONAME}/latest'
+          organization: 'digital-probation-services'
+
 workflows:
   version: 2
+  scheduled:
+    triggers:
+      - schedule:
+          cron: "0 7 * * 1-5"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - app-scan
+      - image-scan
   build-test-and-deploy:
     jobs:
       - build:
