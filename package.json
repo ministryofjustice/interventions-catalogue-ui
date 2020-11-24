@@ -115,7 +115,7 @@
     "passport": "^0.4.1",
     "passport-oauth2": "^1.5.0",
     "superagent": "^5.2.2",
-    "snyk": "^1.316.1"
+    "snyk": "^1.425.4"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
